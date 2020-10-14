@@ -3,24 +3,17 @@ development:
     host: 'localhost'
     port: 3000
     protocol: 'http'
-  support:
+  frontend:
     host: 'localhost'
-    port: 3001
-    protocol: 'http'
-  widget:
-    host: 'localhost'
-    port: 3001
+    port: 8080
     protocol: 'http'
 
 production:
   backend:
-    host: ''
+    host: 'library-tut-backend.herokuapp.com'
     protocol: 'https'
-  support:
-    host: ''
-    protocol: 'https'
-  widget:
-    host: ''
+  frontend:
+    host: 'library-tut.herokuapp.com'
     protocol: 'https'
 
 test:
@@ -28,11 +21,7 @@ test:
     host: 'localhost'
     port: 3000
     protocol: 'http'
-  support:
+  frontend:
     host: 'localhost'
-    port: 3001
-    protocol: 'http'
-  widget:
-    host: 'localhost'
-    port: 3001
+    port: 8080
     protocol: 'http'
