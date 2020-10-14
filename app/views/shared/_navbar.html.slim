@@ -1,0 +1,10 @@
+.container
+  nav.navbar.navbar-light.bg-light.navbar-expand-md
+    .navbar-nav.mr-auto
+    .navbar-nav
+      .nav-item.dropdown
+        a#navbarDropdownMenuLink.nav-link.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          = "#{current_admin.email}"
+
+        .dropdown-menu aria-labelledby="navbarDropdownMenuLink"
+          = link_to t('navbar.sign_out'), destroy_admin_session_path, class: 'dropdown-item', method: :delete

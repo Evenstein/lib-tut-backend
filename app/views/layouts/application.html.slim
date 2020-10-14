@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title Library TUT
+    link rel="icon" href="favicon.png" type="image/ico"
+    link rel="shortcut icon" href="favicon.png" type="image/x-icon"
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body data-locale="#{I18n.locale}"
+    - if current_admin
+      = render 'shared/navbar'
+
+    = render 'shared/flash_alerts'
+    = yield

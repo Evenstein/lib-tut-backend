@@ -1,0 +1,73 @@
+image: registry.sumatosoft.work/ruby:2.7.1-node-browsers
+
+services:
+  - postgres:12.3-alpine
+
+variables:
+  POSTGRES_DB: will_world_test
+  POSTGRES_USER: runner
+  POSTGRES_PASSWORD: ""
+  POSTGRES_HOST_AUTH_METHOD: trust
+
+stages:
+  - linters
+  - test
+  - deploy
+
+cache:
+  key: "$CI_PROJECT_NAME"
+  paths:
+    - vendor/ruby
+    - node_modules
+
+before_script:
+  - bundle config set path 'vendor/ruby'
+  - bundle check || bundle install -j $(nproc)
+  - yarn install --check-files
+  - cp config/database.gitlab.yml config/database.yml
+  - RAILS_ENV=test bundle exec rails db:prepare
+
+after_script:
+  - pkill Xvfb
+
+rubocop:
+  stage: linters
+  script:
+    - bundle exec rubocop
+
+rspec:
+  stage: test
+  script:
+    - bundle exec rspec
+
+deploy_qa:
+  stage: deploy
+  script:
+    - eval $(ssh-agent -s)
+    - mkdir ~/.ssh
+    - echo -e "$SSH_KEY_DEPLOY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-add ~/.ssh/id_rsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - bundle exec cap qa deploy
+  environment:
+    name: qa
+    url: https://api.will-world.qa.sumatosoft.work/
+  only:
+    - qa
+
+deploy_staging:
+  stage: deploy
+  script:
+    - eval $(ssh-agent -s)
+    - mkdir ~/.ssh
+    - echo -e "$SSH_KEY_DEPLOY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-add ~/.ssh/id_rsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - bundle exec cap staging deploy
+  environment:
+    name: staging
+    url: https://api.will-world.demo.sumatosoft.work/
+  only:
+    - staging

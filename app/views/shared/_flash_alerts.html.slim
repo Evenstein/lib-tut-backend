@@ -1,0 +1,7 @@
+- alert_types = { alert: 'warning', error: 'error', notice: 'info', success: 'success' }
+
+- flash.each do |type, message|
+  .alert  *{ class: "alert-#{alert_types[type.to_sym]}" }
+    button.close data-dismiss="alert"
+      | ×
+    = message

@@ -1,0 +1,14 @@
+---
+openapi: 3.0.1
+info:
+  title: API
+  version: v1
+paths: {}
+servers:
+- url: http://localhost:3000
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

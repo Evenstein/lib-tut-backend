@@ -1,0 +1,38 @@
+development:
+  backend:
+    host: 'localhost'
+    port: 3000
+    protocol: 'http'
+  support:
+    host: 'localhost'
+    port: 3001
+    protocol: 'http'
+  widget:
+    host: 'localhost'
+    port: 3001
+    protocol: 'http'
+
+production:
+  backend:
+    host: ''
+    protocol: 'https'
+  support:
+    host: ''
+    protocol: 'https'
+  widget:
+    host: ''
+    protocol: 'https'
+
+test:
+  backend:
+    host: 'localhost'
+    port: 3000
+    protocol: 'http'
+  support:
+    host: 'localhost'
+    port: 3001
+    protocol: 'http'
+  widget:
+    host: 'localhost'
+    port: 3001
+    protocol: 'http'

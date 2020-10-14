@@ -1,0 +1,59 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+# Begin New cops
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+# End New cops
+
+# Begin Style cops
+Style/Documentation:
+  Enabled: false
+# End Style cops
+
+# Begin Layout cops
+Layout/LineLength:
+  Max: 100
+# End Layout cops
+
+# Begin Metrics cops
+Metrics/BlockLength:
+  Exclude:
+    - spec/swagger_helper.rb
+# End Metrics cops
+
+# Begin Rails cops
+Rails/FilePath:
+  EnforcedStyle: arguments
+# End Rails cops
+
+# Begin RSpec cops
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - spec/requests/api/**/*
+# Begin RSpec cops

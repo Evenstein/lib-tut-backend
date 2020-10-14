@@ -1,0 +1,36 @@
+.book-show
+  .col.text-center
+    h2 Book details
+  .col.text-center
+    = link_to 'Edit Book', edit_book_path(id: @book), class: 'btn btn-info ml-1 mb-2'
+    = link_to 'Delete Book', @book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger ml-1 mb-2'
+  .container
+    table.table.table-striped.table-hover
+      thead
+      tbody
+        tr.d-flex
+          td.col-2 = 'Link'
+          td.col-5 = url_for @book.link
+        tr.d-flex
+          td.col-2 = 'Title'
+          td.col-5 = @book.title
+        tr.d-flex
+          td.col-2 = 'Author'
+          td.col-5 = @book.author
+        tr.d-flex
+          td.col-2 = 'Description'
+          td.col-5 = @book.description
+        tr.d-flex
+          td.col-2 = 'Image'
+          td.col-10
+            img.img-fluid src="#{url_for(@book.image)}" alt=''
+        tr.d-flex
+          td.col-2 = 'Genre'
+          td.col-10
+            - if @book.tags.any?
+              = raw @book.tags&.map(&:name).map { |tag| link_to tag, tag_path(tag), class: 'badge badge-secondary' }.join(' ')
+            - else
+              | No genres added
+
+    = link_to 'Cancel', books_url, class: 'btn btn-secondary'
+br
