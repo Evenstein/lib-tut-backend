@@ -23,5 +23,6 @@ Rails.application.routes.draw do
   end
 
   resources :books
+  resources :tags, only: %i[new create]
   get 'tags/:tag', to: 'books#index', as: :tag
 end

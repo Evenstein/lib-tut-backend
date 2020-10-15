@@ -1,0 +1,6 @@
+= simple_form_for @tag, url: url do |f|
+  = f.input :name, required: true, maxlength: 50
+
+  .col.text-center.mt-4.btn-block
+    = link_to 'Cancel', books_url, class: 'btn btn-secondary'
+    = f.button :submit, 'Save Genre', class: 'btn btn-primary ml-2'
