@@ -60,9 +60,21 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "will_world_production"
-
-  config.action_mailer.perform_caching = false
+  # config.active_job.queue_name_prefix = "lib_tut_production"
+  
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: Rails.application.credentials.mailer[:MAIL_HOST] }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      user_name:      Rails.application.credentials.mailer[:SENDMAIL_USERNAME],
+      password:       Rails.application.credentials.mailer[:SENDMAIL_PASSWORD],
+      domain:         Rails.application.credentials.mailer[:MAIL_HOST],
+      address:       'smtp.gmail.com',
+      port:          '587',
+      authentication: :plain,
+      enable_starttls_auto: true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
