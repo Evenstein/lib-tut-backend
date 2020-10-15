@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ConfirmationsController < Devise::ConfirmationsController
+  AFTER_PATH='/confirm'
 
   private
 
@@ -10,6 +11,7 @@ class ConfirmationsController < Devise::ConfirmationsController
                      host: url_options[:host],
                      scheme: url_options[:protocol],
                      port: url_options[:port],
+                     path: AFTER_PATH
                    ).to_s
 
     url_for(redirect_url)
