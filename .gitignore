@@ -38,3 +38,5 @@ yarn-debug.log*
 .idea/
 
 config/database.yml
+
+/config/credentials/production.key
