@@ -20,7 +20,7 @@
             tr
               th = 'No Books uploaded yet'
           - @books&.each do |book|
-            tr
+            tr.book-row data-link="#{book_path(book)}"
               th.pl-2.pr-4 = book.id
               td.pl-0.pr-4
                 div style="min-width: 250px;" = book.title
@@ -31,6 +31,8 @@
                 td.pl-0.pr-4
                   div style="min-width: 200px;"
                     = raw book.tags.map(&:name).map { |tag| link_to tag, tag_path(tag), class: 'badge badge-secondary' }.join(' ')
-              td.px-0.text-center.pr-2 = link_to 'View', book_path(book), class: 'btn btn-info btn-sm'
+              td.px-0.text-center.pr-2
+                = link_to 'Edit', edit_book_path(book), class: 'btn btn-success btn-sm'
+                = link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm ml-1'
   .col.text-center
     = link_to 'Books list', books_path, class: 'btn btn-secondary mb-2'

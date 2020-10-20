@@ -1,9 +1,6 @@
 .book-show
   .col.text-center
     h2 Book details
-  .col.text-center
-    = link_to 'Edit Book', edit_book_path(id: @book), class: 'btn btn-info ml-1 mb-2'
-    = link_to 'Delete Book', @book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger ml-1 mb-2'
   .container
     table.table.table-striped.table-hover
       thead

@@ -3,7 +3,7 @@
 class Book < ApplicationRecord
   include Validations::Books
 
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   has_one_attached :link
   has_one_attached :image

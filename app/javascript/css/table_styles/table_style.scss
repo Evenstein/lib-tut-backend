@@ -9,6 +9,10 @@ th .current {
   background-position: right center;
 }
 
+.book-row:hover {
+  cursor: pointer;
+}
+
 th .asc {
   background-image: url("~up_arrow.gif");
 }
