@@ -10,11 +10,13 @@ window.addEventListener('turbolinks:load', () => {
   });
 
   $(".books-table tr[data-link]").on('click', (e) => {
-    e.preventDefault();
-    let target = e.target.parentElement;
-    if (!target.classList.contains('book-row')) {
-      target = target.parentElement;
+    if (!e.target.classList.contains('btn')) {
+      e.preventDefault();
+      let target = e.target.parentElement;
+      if (!target.classList.contains('book-row')) {
+        target = target.parentElement;
+      }
+      window.location = $(target).data('link')
     }
-    window.location = $(target).data('link')
   });
 });
