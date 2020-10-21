@@ -1,0 +1,30 @@
+.container.show-book-container {
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+table.show-book {
+  border-top: hidden;
+}
+
+.table.show-book td,
+.table.show-book th {
+  width: 100%;
+  float: left;
+  word-break: break-word;
+  padding-left: 10px;
+}
+
+.table.show-book td,
+.table.show-book th[scope=row] {
+  color: #808080;
+}
+
+.table.show-book .odd-section {
+  width: 100%;
+  background: #fff;
+  padding: 3em 0em;
+}

@@ -17,7 +17,9 @@ class BooksController < BaseController
   end
 
   def create
-    @book = Book.create(book_params)
+    @book = Book.new(book_params)
+    @book.validate!('/book')
+    @book.save
 
     redirect_to books_url
   rescue ActiveRecord::RecordInvalid
@@ -30,7 +32,7 @@ class BooksController < BaseController
 
   def update
     @book.assign_attributes(book_params)
-    @book.validate!('/book/:id')
+    @book.validate!('/book')
     @book.save
 
     redirect_to book_url(@book)

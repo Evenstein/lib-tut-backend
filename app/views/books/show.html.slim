@@ -1,29 +1,29 @@
 .book-show
   .col.text-center
     h2 Book details
-  .container
-    table.table.table-striped.table-hover
+  .container.show-book-container
+    table.table.table-striped.table-hover.show-book
       thead
       tbody
         tr.d-flex
           td.col-2 = 'Link'
-          td.col-5 = url_for @book.link
+          td = url_for @book.link
         tr.d-flex
           td.col-2 = 'Title'
-          td.col-5 = @book.title
+          td = @book.title
         tr.d-flex
           td.col-2 = 'Author'
-          td.col-5 = @book.author
+          td = @book.author
         tr.d-flex
           td.col-2 = 'Description'
-          td.col-5 = @book.description
+          td = @book.description
         tr.d-flex
           td.col-2 = 'Image'
-          td.col-10
+          td
             img.img-fluid src="#{url_for(@book.image)}" alt=''
         tr.d-flex
           td.col-2 = 'Genre'
-          td.col-10
+          td
             - if @book.tags.any?
               = raw @book.tags&.map(&:name).map { |tag| link_to tag, tag_path(tag), class: 'badge badge-secondary' }.join(' ')
             - else
