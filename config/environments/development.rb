@@ -39,6 +39,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: Rails.application.credentials.mailer[:MAIL_HOST] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
+      from:           Rails.application.credentials.mailer[:FROM],
       user_name:      Rails.application.credentials.mailer[:SENDMAIL_USERNAME],
       password:       Rails.application.credentials.mailer[:SENDMAIL_PASSWORD],
       domain:         Rails.application.credentials.mailer[:MAIL_HOST],

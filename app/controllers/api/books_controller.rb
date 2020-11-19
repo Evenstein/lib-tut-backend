@@ -14,6 +14,12 @@ class API::BooksController < API::ApplicationController
     )
   end
 
+  def show
+    @book = Book.find(params[:id])
+
+    render json: Serializers::Book.render(@book, root: :book)
+  end
+
   def search
     item = params[:item]
     @q = Book.ransack(title_or_author_i_cont: item)

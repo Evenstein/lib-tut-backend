@@ -11,15 +11,19 @@ Rails.application.routes.draw do
   ###
   # API NAMESPACE
   ###
-  namespace :api, defaults: { format: :json } do
-    resources :books, only: :index do
+  namespace :api do
+    resources :books, only: %i[index show] do
       get 'page/:page', action: :index, on: :collection
     end
     resources :tags, only: :index
     get 'book_search', to: 'books#search'
     post 'tag_search', to: 'tags#search'
     resources :registrations, only: :create
-    resource :auth_tokens, only: :create
+    post 'fetch_review', to: 'reviews#fetch_review'
+    get 'search_review', to: 'reviews#search_review'
+    resource :auth_tokens, only: :create do
+      patch 'refresh_token', to: 'auth_tokens#update'
+    end
   end
 
   resources :books

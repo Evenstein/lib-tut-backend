@@ -21,5 +21,11 @@ module Serializers
       image_variant = book.image.variant(resize_to_fill: [200, 290]).processed
       Rails.application.routes.url_helpers.rails_representation_url(image_variant)
     end
+
+    field :overall_rating do |book, _options|
+      book.calc_rating
+    end
+
+    association :reviews, blueprint: Review
   end
 end

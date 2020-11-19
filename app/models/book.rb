@@ -5,6 +5,7 @@ class Book < ApplicationRecord
 
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
+  has_many :reviews
   has_one_attached :link
   has_one_attached :image
 
@@ -29,5 +30,34 @@ class Book < ApplicationRecord
 
   def tag_list=(names)
     self.tags = names.split(',').map { |name| Tag.where(name: name.strip).first_or_create! }
+  end
+
+  def calc_rating
+    rates = Review.where(book: self).pluck(:rate)
+    return nil if rates.length == 0
+
+    (rates.sum.to_f / rates.length).round(1)
+  end
+
+  private
+
+  def link_attached
+    unless link.attached?
+      errors.add(:link, ' file should be attached')
+    end
+  end
+
+  def image_attached
+    if image.attached?
+      correct_image_mime_type
+    else
+      errors.add(:image, ' should be attached')
+    end
+  end
+
+  def correct_image_mime_type
+    unless image.content_type.in?(%w[image/png image/jpg image/jpeg])
+      errors.add(:image, 'must be a JPG or a PNG or a JPEG file')
+    end
   end
 end

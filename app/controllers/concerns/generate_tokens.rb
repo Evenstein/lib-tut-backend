@@ -17,7 +17,7 @@ module GenerateTokens
 
   def render_tokens(tokens)
     if tokens.token.present?
-      render json: { jwt: tokens.token, refresh_token: tokens.refresh_token }, status: :ok
+      render json: { jwt: tokens.token, refresh_token: tokens.refresh_token }, status: :created
     else
       render json: { message: 'Invalid data' },
              status: :unauthorized

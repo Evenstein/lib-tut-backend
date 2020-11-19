@@ -51,7 +51,7 @@ module Interactors
 
       def expiration_date
         @expiration_date ||= Rails.application.credentials
-                                 .jwt[:expiration_period][:refresh_token]&.days&.from_now
+                                 .jwt[:expiration_period][:token]&.days&.from_now
       end
     end
   end

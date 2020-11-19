@@ -6,4 +6,9 @@ class User < ApplicationRecord
          :rememberable, :validatable
 
   has_many :refresh_tokens, dependent: :destroy
+  has_many :reviews
+
+  def self.from_token_payload(payload)
+    RefreshToken.find(payload['sub']).user
+  end
 end
