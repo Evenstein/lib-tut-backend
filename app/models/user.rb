@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Validations::Users
   # Include default devise modules. Others available are:
@@ -6,7 +8,7 @@ class User < ApplicationRecord
          :rememberable, :validatable
 
   has_many :refresh_tokens, dependent: :destroy
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
 
   def self.from_token_payload(payload)
     RefreshToken.find(payload['sub']).user

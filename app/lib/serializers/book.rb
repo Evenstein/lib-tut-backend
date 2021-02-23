@@ -7,11 +7,12 @@ module Serializers
     fields :title, :author, :description
 
     field :link do |book, _options|
-      default_url = Rails.application.routes.default_url_options[:protocol] + '://' +
-          Rails.application.routes.default_url_options[:host]
+      protocol = "#{Rails.application.routes.default_url_options[:protocol]}://"
+      host = Rails.application.routes.default_url_options[:host]
+      default_url = protocol + host
 
       if Rails.application.routes.default_url_options[:port].present?
-        default_url += ':' + Rails.application.routes.default_url_options[:port].to_s
+        default_url += ":#{Rails.application.routes.default_url_options[:port]}"
       end
 
       default_url + Rails.application.routes.url_helpers.rails_blob_path(book.link, only_path: true)

@@ -30,8 +30,7 @@ gem 'chosen-rails'
 # Search gem
 gem 'ransack', '~>2.3.2'
 # Useful gem for JWT authorization
-gem 'knock', github: "nsarno/knock", branch: "master",
-    ref: "9214cd027422df8dc31eb67c60032fbbf8fc100b"
+gem 'knock', github: 'nsarno/knock', branch: 'master', ref: '9214cd027422df8dc31eb67c60032fbbf8fc100b'
 # JWT support for ruby
 gem 'jwt', '~> 2.2.1'
 
@@ -82,11 +81,11 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 
   # A Ruby static code analyzer and formatter, based on the community Ruby style guide.
-  gem 'rubocop', '~> 0.84.0', require: false
+  gem 'rubocop', '~> 1.10', require: false
   # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
-  gem 'rubocop-rails', '~> 2.5.2', require: false
+  gem 'rubocop-rails', '~> 2.9.1', require: false
   # Code style checking for RSpec files
-  gem 'rubocop-rspec', '~> 1.39.0', require: false
+  gem 'rubocop-rspec', '~> 2.2.0', require: false
   # Remote multi-server automation tool
   gem 'capistrano', '~> 3.14', require: false
   # Rails specific tasks for Capistrano v3

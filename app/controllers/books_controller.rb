@@ -5,11 +5,11 @@ class BooksController < BaseController
   helper_method :sort_column, :sort_direction
 
   def index
-    if params[:tag]
-      @books = Book.tagged_with(params[:tag])
-    else
-      @books = Book.order(sort_column + ' ' + sort_direction)
-    end
+    @books = if params[:tag]
+               Book.tagged_with(params[:tag])
+             else
+               Book.order("#{sort_column} #{sort_direction}")
+             end
   end
 
   def new
@@ -54,6 +54,7 @@ class BooksController < BaseController
 
   def sort_column
     return nil if params[:sort] == 'tags'
+
     Book.column_names.include?(params[:sort]) ? params[:sort] : 'id'
   end
 
@@ -69,9 +70,7 @@ class BooksController < BaseController
       :description,
       :image,
       :tag,
-      {
-        tag_ids: []
-      }
+      { tag_ids: [] }
     )
   end
 end

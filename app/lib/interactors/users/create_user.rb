@@ -28,7 +28,10 @@ module Interactors
 
         user
       rescue ActiveRecord::RecordInvalid
-        context.fail!(fields_errors: user.errors.values.flatten.delete_if { |e| e.start_with?(/[a-z]/) }, status: :conflict)
+        context.fail!(
+          fields_errors: user.errors.values.flatten.delete_if { |e| e.start_with?(/[a-z]/) },
+          status: :conflict
+        )
       end
 
       def assign_user_params

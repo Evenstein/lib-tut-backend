@@ -21,21 +21,21 @@ module Interactors
 
       def generate_refresh_token
         token =
-            Knock::AuthToken.new(
-                payload: {
-                    sub: context.user.id,
-                    exp: expiration_date&.to_i
-                }
-            ).token
+          Knock::AuthToken.new(
+            payload: {
+              sub: context.user.id,
+              exp: expiration_date&.to_i
+            }
+          ).token
         find_or_create_token(token)
       end
 
       def find_or_create_token(token)
         RefreshToken.where('expires_at > ?', DateTime.now)
-            .find_or_create_by(
-                user_id: context.user.id,
-                device_uid: context.device_uid
-            ) do |r|
+                    .find_or_create_by(
+                      user_id: context.user.id,
+                      device_uid: context.device_uid
+                    ) do |r|
           r.token = token
           r.expires_at = expiration_date
         end
@@ -43,15 +43,15 @@ module Interactors
 
       def generate_token
         Knock::AuthToken.new(
-            payload: {
-                sub: context.user.refresh_tokens.find_by(device_uid: context.device_uid).id
-            }
+          payload: {
+            sub: context.user.refresh_tokens.find_by(device_uid: context.device_uid).id
+          }
         ).token
       end
 
       def expiration_date
         @expiration_date ||= Rails.application.credentials
-                                 .jwt[:expiration_period][:token]&.days&.from_now
+                                  .jwt[:expiration_period][:token]&.days&.from_now
       end
     end
   end

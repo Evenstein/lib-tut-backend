@@ -11,7 +11,7 @@ module Validations
         validates :email,
                   format: { with: EMAIL_REGEX, message: 'Invalid email format' },
                   uniqueness: {
-                      case_sensitive: false, message: 'Email already taken'
+                    case_sensitive: false, message: 'Email already taken'
                   }
         validates :password,
                   confirmation: { case_sensitive: true, message: 'Does not match passwords' },

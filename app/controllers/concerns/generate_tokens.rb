@@ -4,8 +4,8 @@ module GenerateTokens
   extend ActiveSupport::Concern
   def generate_tokens(user, device_uid = nil)
     tokens = Interactors::Users::GenerateTokens.call(
-        user: user,
-        device_uid: device_uid
+      user: user,
+      device_uid: device_uid
     )
 
     if user.confirmed?

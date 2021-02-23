@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::BooksController < API::ApplicationController
+class BooksController < API::ApplicationController
   PER_PAGE = 10
 
   def index
@@ -8,9 +8,9 @@ class API::BooksController < API::ApplicationController
                  .page(params[:page])
                  .per(PER_PAGE)
     render json: Serializers::Book.render(
-        @books,
-        root: :books,
-        meta: { count: Book.all.count }
+      @books,
+      root: :books,
+      meta: { count: Book.all.count }
     )
   end
 
@@ -25,9 +25,9 @@ class API::BooksController < API::ApplicationController
     @q = Book.ransack(title_or_author_i_cont: item)
     @books = @q.result.order('created_at DESC')
     render json: Serializers::Book.render(
-        @books,
-        root: :books,
-        meta: { count: @books.count }
+      @books,
+      root: :books,
+      meta: { count: @books.count }
     )
   end
 end

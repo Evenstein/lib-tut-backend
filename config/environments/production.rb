@@ -64,17 +64,19 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: Rails.application.credentials.mailer[:MAIL_HOST] }
+  config.action_mailer.default_url_options = {
+    host: Rails.application.credentials.mailer[:MAIL_HOST]
+  }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      from:           Rails.application.credentials.mailer[:FROM],
-      user_name:      Rails.application.credentials.mailer[:SENDMAIL_USERNAME],
-      password:       Rails.application.credentials.mailer[:SENDMAIL_PASSWORD],
-      domain:         Rails.application.credentials.mailer[:MAIL_HOST],
-      address:       'smtp.gmail.com',
-      port:          '587',
-      authentication: :plain,
-      enable_starttls_auto: true
+    from:           Rails.application.credentials.mailer[:FROM],
+    user_name:      Rails.application.credentials.mailer[:SENDMAIL_USERNAME],
+    password:       Rails.application.credentials.mailer[:SENDMAIL_PASSWORD],
+    domain:         Rails.application.credentials.mailer[:MAIL_HOST],
+    address:       'smtp.gmail.com',
+    port:          '587',
+    authentication: :plain,
+    enable_starttls_auto: true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -96,7 +98,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV['RAILS_LOG_TO_STDOUT'].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end

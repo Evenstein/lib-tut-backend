@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::ReviewsController < API::ApplicationController
+class ReviewsController < API::ApplicationController
   before_action :authenticate_user
 
   def fetch_review

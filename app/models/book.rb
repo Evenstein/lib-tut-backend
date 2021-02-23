@@ -5,13 +5,13 @@ class Book < ApplicationRecord
 
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
-  has_many :reviews
+  has_many :reviews, dependent: :restrict_with_error
   has_one_attached :link
   has_one_attached :image
 
   accepts_nested_attributes_for :tags
 
-  scope :fetch_by_tag_name, -> (name) { joins(:tags).merge(Tag.fetch_by_name(name)) }
+  scope :fetch_by_tag_name, ->(name) { joins(:tags).merge(Tag.fetch_by_name(name)) }
 
   class << self
     def tagged_with(name)
@@ -20,7 +20,7 @@ class Book < ApplicationRecord
 
     def tag_counts
       Tag.select('tags.*, count(taggings.tag_id) as count')
-          .joins(:taggings).group('taggings.tag_id')
+         .joins(:taggings).group('taggings.tag_id')
     end
   end
 
@@ -34,7 +34,7 @@ class Book < ApplicationRecord
 
   def calc_rating
     rates = Review.where(book: self).pluck(:rate)
-    return nil if rates.length == 0
+    return nil if rates.empty?
 
     (rates.sum.to_f / rates.length).round(1)
   end
@@ -42,11 +42,12 @@ class Book < ApplicationRecord
   private
 
   def link_attached
-    unless link.attached?
-      errors.add(:link, ' file should be attached')
-    end
+    return if link.attached?
+
+    errors.add(:link, ' file should be attached')
   end
 
+  # rubocop:disable Style/GuardClause
   def image_attached
     if image.attached?
       correct_image_mime_type
@@ -60,4 +61,5 @@ class Book < ApplicationRecord
       errors.add(:image, 'must be a JPG or a PNG or a JPEG file')
     end
   end
+  # rubocop:enable Style/GuardClause
 end

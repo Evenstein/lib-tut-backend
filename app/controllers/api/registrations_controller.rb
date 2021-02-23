@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-class API::RegistrationsController < API::ApplicationController
+class RegistrationsController < API::ApplicationController
   def create
     context = Interactors::Users::CreateUser.call(user_params)
 
-    if context.status == :created
+    case context.status
+    when :created
       render json: { message: context.message }, status: context.status
-    elsif context.status == :conflict
+    when :conflict
       render json: { message: context.fields_errors }, status: context.status
     else
-      render json: { message: 'Unprocessable data' }, status: 422
+      render json: { message: 'Unprocessable data' }, status: :unprocessable_entity
     end
   end
 
@@ -17,10 +18,10 @@ class API::RegistrationsController < API::ApplicationController
 
   def user_params
     params.permit(
-        :email,
-        :password,
-        :password_confirmation,
-        :format
+      :email,
+      :password,
+      :password_confirmation,
+      :format
     )
   end
 end
